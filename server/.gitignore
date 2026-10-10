@@ -1,0 +1,5 @@
+# Local settings and secrets (copy .env.example to .env)
+.env
+
+# Chat attachments uploaded by users
+uploads/

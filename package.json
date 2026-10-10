@@ -1,0 +1,22 @@
+{
+  "name": "daaktarsahab",
+  "private": true,
+  "type": "module",
+  "description": "DaaktarSahab: heart checks and doctor appointments (MERN).",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "seed": "npm run seed -w server",
+    "migrate:mysql": "npm run migrate:mysql -w server",
+    "train-model": "npm run train-model -w server",
+    "test": "npm test -w server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.5"
+  }
+}

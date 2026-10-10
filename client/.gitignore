@@ -1,0 +1,4 @@
+# Vite build output and cache
+dist/
+.vite/
+*.local
