@@ -1,0 +1,1022 @@
+/*
+ * Styles that were inline <style> blocks in single PHP pages. Each block is
+ * scoped to its page's wrapper class with :where() (no added specificity), so
+ * pages that reuse a class name (.row-actions, .stat-card) keep their own look.
+ */
+
+/* ---------- Shared by several pages ---------- */
+:where(.site-page) .field textarea {
+    width: 100%;
+    min-height: 160px;
+    padding: 12px 14px;
+    border: 1px solid #cfdbe3;
+    border-radius: 10px;
+    background: #fff;
+    color: #12304a;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+:where(.site-page) .field textarea:focus {
+    outline: none;
+    border-color: #00a99d;
+    box-shadow: 0 0 0 4px rgba(0, 169, 157, 0.18);
+}
+
+:where(.pg-consultation) .field textarea {
+    min-height: 200px;
+}
+
+/* The doctor photo instead of the patients' heart image (doctor sign-in, reset). */
+:where(.site-page) .auth-visual.is-doctor {
+    background: #9fd9d8 url("/images/drbanner.jpg") 82% top / cover no-repeat;
+}
+
+:where(.site-page) .auth-visual.is-doctor::before {
+    background: linear-gradient(180deg, rgba(234, 247, 251, 0.95) 0%, rgba(234, 247, 251, 0.7) 45%, rgba(234, 247, 251, 0) 80%);
+}
+
+/* Logout is a button now (it calls the API), styled like the old link. */
+.site-header button.logout-btn {
+    border: 0;
+    cursor: pointer;
+    line-height: inherit;
+}
+
+/* Buttons that look like links (actions that used to be <a href>). */
+.link-button {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #00786f;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* ---------- Public homepage ---------- */
+:where(.pg-home) .staff-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 0 48px;
+    padding: 22px 24px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 16px;
+}
+
+:where(.pg-home) .staff-strip h2 {
+    margin: 0 0 4px;
+    color: #12304a;
+    font-size: 20px;
+}
+
+:where(.pg-home) .staff-strip p {
+    margin: 0;
+    color: #3d566b;
+    font-size: 16px;
+}
+
+:where(.pg-home) .staff-strip .hero-actions {
+    margin-top: 0;
+}
+
+/* ---------- Patient sign in / create account ---------- */
+:where(.pg-patient-login) .auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin: 0 0 24px;
+    padding: 4px;
+    border-radius: 12px;
+    background: #eef3f6;
+}
+
+:where(.pg-patient-login) .auth-tabs button {
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 9px;
+    background: none;
+    color: #3d566b;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+:where(.pg-patient-login) .auth-tabs button[aria-selected="true"] {
+    background: #fff;
+    color: #12304a;
+    box-shadow: 0 1px 3px rgba(18, 48, 74, 0.12);
+}
+
+:where(.site-page) .auth-links {
+    margin: -6px 0 18px;
+    font-size: 15px;
+}
+
+/* ---------- Password reset (all three portals) ---------- */
+:where(.pg-reset) .reset-steps {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+}
+
+:where(.pg-reset) .reset-steps li {
+    flex: 1;
+    padding-top: 10px;
+    border-top: 3px solid #e3ebf0;
+    color: #8aa0b2;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+:where(.pg-reset) .reset-steps li.is-done,
+:where(.pg-reset) .reset-steps li.is-current {
+    border-top-color: #00a99d;
+    color: #00786f;
+}
+
+:where(.pg-reset) .reset-link {
+    word-break: break-all;
+}
+
+:where(.site-page) .done-icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin: 0 0 16px;
+    border-radius: 50%;
+    background: #e7f7ee;
+    box-shadow: 0 0 0 6px #f3fbf6;
+    color: #1f7a4a;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+/* ---------- Profiles (patient and doctor) ---------- */
+:where(.pg-profile) .profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 18px;
+}
+
+:where(.pg-profile) .profile-summary img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid #e6f6f4;
+    background: #f5f8fa;
+}
+
+:where(.pg-profile) .profile-summary h2 {
+    margin: 0;
+    color: #12304a;
+    font-size: 20px;
+}
+
+:where(.pg-profile) .profile-summary p {
+    margin: 2px 0 0;
+    color: #6b8193;
+    font-size: 15px;
+}
+
+:where(.pg-profile) .quick-links {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+/* ---------- Heart check form ---------- */
+/* It keeps its own sans-serif font, as designed. */
+:where(.pg-heart-form) * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:where(.pg-heart-form) .container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+    width: 100%;
+    max-width: 1120px;
+    margin: -56px auto 64px;
+    padding: 0 32px;
+}
+
+:where(.pg-heart-form) .form-main {
+    min-width: 0;
+}
+
+:where(.pg-heart-form) .form-progress {
+    position: sticky;
+    top: 96px;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(18, 48, 74, 0.06), 0 12px 32px -12px rgba(18, 48, 74, 0.16);
+}
+
+:where(.pg-heart-form) .form-progress__title {
+    margin: 0 0 4px;
+    color: #00786f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+:where(.pg-heart-form) .form-progress__count {
+    margin: 0 0 12px;
+    color: #6b8193;
+    font-size: 14px;
+}
+
+:where(.pg-heart-form) .form-progress__bar {
+    height: 6px;
+    margin-bottom: 16px;
+    border-radius: 99px;
+    background: #e6f6f4;
+    overflow: hidden;
+}
+
+:where(.pg-heart-form) .form-progress__bar i {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: #00a99d;
+    transition: width 0.3s;
+}
+
+:where(.pg-heart-form) .form-progress ol {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+:where(.pg-heart-form) .form-progress a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: 10px;
+    color: #3d566b;
+    font-size: 14.5px;
+    text-decoration: none;
+}
+
+:where(.pg-heart-form) .form-progress a:hover {
+    background: #f5f8fa;
+}
+
+:where(.pg-heart-form) .form-progress a b {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #f5f8fa;
+    border: 1px solid #e3ebf0;
+    color: #3d566b;
+    font-size: 12.5px;
+}
+
+:where(.pg-heart-form) .form-progress a small {
+    margin-left: auto;
+    color: #6b8193;
+    font-size: 12.5px;
+}
+
+:where(.pg-heart-form) .form-progress a.is-active {
+    background: #e6f6f4;
+    color: #12304a;
+    font-weight: 600;
+}
+
+:where(.pg-heart-form) .form-progress a.is-active b {
+    border-color: #00a99d;
+    color: #00786f;
+}
+
+:where(.pg-heart-form) .form-progress a.is-done b {
+    background: #00a99d;
+    border-color: #00a99d;
+    color: #fff;
+    font-size: 0;
+}
+
+:where(.pg-heart-form) .form-progress a.is-done b::after {
+    content: "\2713";
+    font-size: 13px;
+}
+
+:where(.pg-heart-form) .form-progress__privacy {
+    margin: 16px 0 0;
+    padding-top: 14px;
+    border-top: 1px solid #e3ebf0;
+    color: #6b8193;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+:where(.pg-heart-form) .info-box {
+    margin: 0 0 20px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(18, 48, 74, 0.06), 0 12px 32px -12px rgba(18, 48, 74, 0.16);
+    color: #3d566b;
+    line-height: 1.55;
+}
+
+:where(.pg-heart-form) .info-box > summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+    list-style: none;
+    cursor: pointer;
+    color: #12304a;
+    font-weight: 700;
+}
+
+:where(.pg-heart-form) .info-box > summary::-webkit-details-marker {
+    display: none;
+}
+
+:where(.pg-heart-form) .info-box > summary::before {
+    content: "i";
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff4e0;
+    color: #b7791f;
+    font-weight: 700;
+    font-style: italic;
+}
+
+:where(.pg-heart-form) .info-box > summary::after {
+    content: "";
+    width: 9px;
+    height: 9px;
+    margin-left: auto;
+    border-right: 2px solid #6b8193;
+    border-bottom: 2px solid #6b8193;
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+}
+
+:where(.pg-heart-form) .info-box[open] > summary::after {
+    transform: rotate(-135deg);
+}
+
+:where(.pg-heart-form) .info-box > :not(summary) {
+    margin: 10px 22px 0;
+}
+
+:where(.pg-heart-form) .info-box > :last-child {
+    margin-bottom: 20px;
+}
+
+:where(.pg-heart-form) .info-box ul {
+    list-style: none;
+}
+
+:where(.pg-heart-form) .info-box li {
+    position: relative;
+    margin: 8px 0;
+    padding-left: 26px;
+}
+
+:where(.pg-heart-form) .info-box li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 0.45em;
+    width: 12px;
+    height: 7px;
+    border-left: 2px solid #00a99d;
+    border-bottom: 2px solid #00a99d;
+    transform: rotate(-45deg);
+}
+
+:where(.pg-heart-form) .info-box a {
+    color: #00786f;
+    font-weight: 600;
+}
+
+:where(.pg-heart-form) .form-errors {
+    margin: 0 0 20px;
+    padding: 16px 22px;
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-radius: 16px;
+    color: #742a2a;
+}
+
+:where(.pg-heart-form) .form-errors ul {
+    margin: 8px 0 0 20px;
+}
+
+:where(.pg-heart-form) .form-submit {
+    position: sticky;
+    bottom: 16px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 14px 14px 22px;
+    border-radius: 16px;
+    background: #12304a;
+    color: #d6e0e8;
+    box-shadow: 0 18px 40px -16px rgba(18, 48, 74, 0.55);
+}
+
+:where(.pg-heart-form) .form-submit__count {
+    font-size: 14.5px;
+}
+
+:where(.pg-heart-form) .form-submit__count b {
+    color: #fff;
+}
+
+:where(.pg-heart-form) .form-submit button[type="submit"] {
+    width: auto;
+    margin: 0 0 0 auto;
+    padding: 13px 26px;
+    border: 0;
+    border-radius: 10px;
+    background: #00a99d;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+}
+
+:where(.pg-heart-form) .form-submit button[type="submit"]:hover {
+    background: #00c2b4;
+    transform: translateY(-1px);
+}
+
+:where(.pg-heart-form) .form-submit button[type="submit"]:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+@media (max-width: 900px) {
+    :where(.pg-heart-form) .container {
+        grid-template-columns: 1fr;
+        margin-top: -48px;
+        padding: 0 16px;
+    }
+
+    :where(.pg-heart-form) .form-progress {
+        position: static;
+        padding: 16px;
+    }
+
+    /* Keep the count and bar; the section list is too long for a phone. */
+    :where(.pg-heart-form) .form-progress ol {
+        display: none;
+    }
+
+    :where(.pg-heart-form) .form-submit {
+        bottom: 8px;
+        padding: 12px 12px 12px 16px;
+    }
+}
+
+/* ---------- Edit a heart check ---------- */
+:where(.pg-edit-reading) .edit-actions {
+    position: sticky;
+    bottom: 16px;
+    z-index: 5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 14px 14px 22px;
+    border-radius: 16px;
+    background: #12304a;
+    color: #d6e0e8;
+    box-shadow: 0 18px 40px -16px rgba(18, 48, 74, 0.55);
+}
+
+:where(.pg-edit-reading) .edit-actions p {
+    margin: 0;
+    font-size: 15px;
+}
+
+:where(.pg-edit-reading) .edit-actions .btn-row {
+    margin-left: auto;
+}
+
+/* ---------- Result ---------- */
+:where(.pg-result) .answers-list li {
+    font-size: 15px;
+    padding: 9px 0;
+}
+
+/* ---------- Prediction history ---------- */
+:where(.pg-history) .trend-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 0 8px;
+}
+
+:where(.pg-history) .trend-stat {
+    text-align: right;
+}
+
+:where(.pg-history) .trend-stat-value {
+    color: #12304a;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+:where(.pg-history) .trend-stat-value small {
+    color: #6b8193;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+:where(.pg-history) .trend-stat-delta {
+    color: #3d566b;
+    font-size: 15px;
+}
+
+:where(.pg-history) .trend-chart {
+    position: relative;
+    margin-top: 8px;
+}
+
+:where(.pg-history) .trend-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+:where(.pg-history) .trend-chart .grid line { stroke: #edf2f7; stroke-width: 1; }
+:where(.pg-history) .trend-chart .axis text { fill: #6b8193; font-size: 12px; }
+:where(.pg-history) .trend-chart .threshold line { stroke: #a0aec0; stroke-width: 1; }
+:where(.pg-history) .trend-chart .threshold text { fill: #3d566b; font-size: 12px; }
+:where(.pg-history) .trend-chart .series-line { fill: none; stroke: #00897b; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+:where(.pg-history) .trend-chart .series-dot { fill: #00897b; stroke: #fff; stroke-width: 2; }
+:where(.pg-history) .trend-chart .series-dot.active { r: 6; }
+:where(.pg-history) .trend-chart .end-label { fill: #12304a; font-size: 13px; font-weight: 600; }
+:where(.pg-history) .trend-chart .crosshair { stroke: #a0aec0; stroke-width: 1; }
+
+:where(.pg-history) .trend-tooltip {
+    position: absolute;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #12304a;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+    transform: translate(-50%, calc(-100% - 12px));
+}
+
+:where(.pg-history) .trend-tooltip .tt-key {
+    display: inline-block;
+    width: 12px;
+    height: 2px;
+    margin-right: 6px;
+    background: #4fd1c5;
+    vertical-align: middle;
+}
+
+:where(.pg-history) .row-actions {
+    display: flex;
+    gap: 6px;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+/* ---------- Booking: time-slot picker ---------- */
+:where(.pg-booking) .slot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 0 0 24px;
+}
+
+:where(.pg-booking) .slot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 12px;
+    border: 1px solid #cfdbe3;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+}
+
+:where(.pg-booking) .slot-time {
+    color: #12304a;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+:where(.pg-booking) .slot-state {
+    color: #6b8193;
+    font-size: 14px;
+}
+
+:where(.pg-booking) .slot-free input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+:where(.pg-booking) .slot-free {
+    cursor: pointer;
+    transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+}
+
+:where(.pg-booking) .slot-free:hover {
+    border-color: #00a99d;
+    background: #f2fbfa;
+}
+
+:where(.pg-booking) .slot-free:has(input[type="radio"]:checked) {
+    border-color: #00a99d;
+    background: #e6f6f4;
+    box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.18);
+}
+
+:where(.pg-booking) .slot-free:has(input[type="radio"]:checked) .slot-state {
+    color: #00786f;
+    font-weight: 600;
+}
+
+:where(.pg-booking) .slot-free:has(input[type="radio"]:focus-visible) {
+    outline: 2px solid #00a99d;
+    outline-offset: 2px;
+}
+
+:where(.pg-booking) .slot-booked {
+    background: #f5f8fa;
+    border-style: dashed;
+    cursor: not-allowed;
+}
+
+:where(.pg-booking) .slot-booked .slot-time {
+    color: #9aabb8;
+    text-decoration: line-through;
+}
+
+:where(.pg-booking) .slot-booked .slot-state {
+    color: #9aabb8;
+}
+
+:where(.pg-booking) .fee {
+    color: #00786f;
+}
+
+/* Booking result card */
+:where(.pg-booking) .result-panel {
+    max-width: 640px;
+    margin: 0 auto 24px;
+}
+
+:where(.pg-booking) .result-icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    margin: 0 0 16px;
+    border-radius: 50%;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+:where(.pg-booking) .result-icon.ok  { background: #e7f7ee; color: #1f7a4a; box-shadow: 0 0 0 6px #f3fbf6; }
+:where(.pg-booking) .result-icon.bad { background: #fdecec; color: #b42318; box-shadow: 0 0 0 6px #fff6f6; }
+
+:where(.pg-booking) .result-panel h2 {
+    margin: 0 0 6px;
+    color: #12304a;
+    font-size: 24px;
+}
+
+:where(.pg-booking) .result-panel > p {
+    margin: 0 0 20px;
+    color: #3d566b;
+    font-size: 16.5px;
+    line-height: 1.55;
+}
+
+:where(.pg-booking) .result-panel .detail-list {
+    margin: 0 0 24px;
+}
+
+/* ---------- Patient: my appointments ---------- */
+:where(.pg-patient-appointments) .share-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+:where(.pg-patient-appointments) .share-form select {
+    height: 38px;
+    max-width: 170px;
+    padding: 0 10px;
+    border: 1px solid #cfdbe3;
+    border-radius: 8px;
+    background: #fff;
+    color: #12304a;
+    font-size: 14.5px;
+}
+
+:where(.pg-patient-appointments) .share-form select:focus {
+    outline: none;
+    border-color: #00a99d;
+    box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.18);
+}
+
+:where(.pg-patient-appointments) .shared {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+:where(.pg-patient-appointments) .notes-cell {
+    max-width: 360px;
+}
+
+:where(.pg-patient-appointments) .notes-cell summary {
+    color: #00786f;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+:where(.pg-patient-appointments) .doctor-notes {
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-left: 3px solid #00a99d;
+    border-radius: 4px;
+    background: #f7fafb;
+    color: #12304a;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+:where(.pg-patient-appointments) .notes-date {
+    margin-top: 4px;
+}
+
+:where(.pg-patient-appointments) .row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+/* ---------- Contact ---------- */
+:where(.pg-contact) .contact-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+:where(.pg-contact) .contact-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid #eef3f6;
+}
+
+:where(.pg-contact) .contact-list li:last-child {
+    border-bottom: none;
+}
+
+:where(.pg-contact) .contact-list img {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    border-radius: 50%;
+    background: #e6f6f4;
+}
+
+:where(.pg-contact) .contact-list span {
+    display: block;
+    color: #6b8193;
+    font-size: 14px;
+}
+
+:where(.pg-contact) .contact-list a,
+:where(.pg-contact) .contact-list strong {
+    color: #12304a;
+    font-size: 16.5px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ---------- Doctor dashboard ---------- */
+:where(.pg-doctor-home) .doctor-hero {
+    flex: 0 0 auto;
+    position: relative;
+    background: #9fd9d8 url("/images/drbanner.jpg") right top / cover no-repeat;
+}
+
+:where(.pg-doctor-home) .doctor-hero__inner {
+    position: relative;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 56px 32px 112px;
+}
+
+:where(.pg-doctor-home) .doctor-hero h1 {
+    max-width: 560px;
+    margin: 0 0 10px;
+    color: #12304a;
+    font-size: clamp(30px, 3.8vw, 46px);
+    line-height: 1.1;
+}
+
+:where(.pg-doctor-home) .doctor-hero h1 span {
+    color: #00786f;
+}
+
+:where(.pg-doctor-home) .doctor-hero p {
+    max-width: 480px;
+    margin: 0;
+    color: #1f3d52;
+    font-size: 18px;
+    line-height: 1.55;
+}
+
+:where(.pg-doctor-home) .doctor-hero .page-hero__eyebrow {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+:where(.pg-doctor-home) .doctor-hero .btn-row {
+    margin-top: 24px;
+}
+
+:where(.pg-doctor-home) .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 0 0 24px;
+}
+
+:where(.pg-doctor-home) .stat-card {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 24px 20px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-top: 3px solid #00a99d;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(18, 48, 74, 0.06), 0 12px 32px -12px rgba(18, 48, 74, 0.18);
+}
+
+:where(.pg-doctor-home) .stat-card.is-attention {
+    border-top-color: #e0a100;
+}
+
+:where(.pg-doctor-home) .stat-number {
+    margin: 0 0 4px;
+    color: #12304a;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+:where(.pg-doctor-home) .stat-text {
+    margin: 0;
+    color: #3d566b;
+    font-size: 15.5px;
+    line-height: 1.5;
+}
+
+:where(.pg-doctor-home) .stat-link {
+    margin-top: auto;
+    padding-top: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+:where(.pg-doctor-home) .stat-link::after {
+    content: " \2192";
+}
+
+.site-page main .stat-link:hover {
+    text-decoration: underline;
+}
+
+:where(.pg-doctor-home) .patient-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+:where(.pg-doctor-home) .patient-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eef3f6;
+    font-size: 16px;
+}
+
+:where(.pg-doctor-home) .patient-list li:last-child {
+    border-bottom: none;
+}
+
+:where(.pg-doctor-home) .patient-list strong {
+    color: #12304a;
+}
+
+:where(.pg-doctor-home) .patient-list span {
+    color: #6b8193;
+    font-size: 14.5px;
+    white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+    :where(.pg-doctor-home) .doctor-hero {
+        background-position: 70% top;
+    }
+
+    /* On phones the text sits over the doctor, so soften the photo. */
+    :where(.pg-doctor-home) .doctor-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(180deg, rgba(234, 247, 251, 0.9), rgba(234, 247, 251, 0.6));
+    }
+
+    :where(.pg-doctor-home) .doctor-hero__inner {
+        padding: 36px 16px 88px;
+    }
+}
+
+/* ---------- Doctor: appointments ---------- */
+:where(.pg-doctor-appointments) .row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+/* ---------- Doctor: sessions ---------- */
+:where(.pg-doctor-schedule) .session-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 16px;
+    align-items: end;
+}
+
+:where(.pg-doctor-schedule) .session-form .field {
+    margin: 0;
+}
+
+:where(.pg-doctor-schedule) .session-form .btn {
+    height: 48px;
+}
+
+@media (max-width: 900px) {
+    :where(.pg-doctor-schedule) .session-form {
+        grid-template-columns: 1fr;
+    }
+}

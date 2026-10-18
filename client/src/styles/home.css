@@ -1,0 +1,337 @@
+/* From the PHP app's css/home.css, scoped to .home-page with :where() (no added specificity). */
+/*
+ * Homepage layout, shared by the public homepage (index.php) and the patient
+ * homepage (patient/index.php): photo hero, cards that float up over it, and
+ * the "How it works" steps. Pages add class="home-page" to <body>.
+ * The header's look lives in css/header.css and the footer's in footer.html.
+ */
+
+.home-page {
+    background: #f5f8fa;
+    color: #3d566b;
+}
+
+:where(.home-page) .container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* ---- Hero ---- */
+:where(.home-page) .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 460px;
+    text-align: left;
+    background: #8fcde3 url("/images/life-insurance-concept-with-stethoscope.jpg") right 38% / cover no-repeat;
+}
+
+/* Pale wash on the left keeps the text readable; the heart stays clear on the right. */
+:where(.home-page) .hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(234, 247, 251, 0.97) 0%, rgba(234, 247, 251, 0.86) 36%, rgba(234, 247, 251, 0) 64%);
+}
+
+:where(.home-page) .hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 72px 48px 120px;
+    box-sizing: border-box;
+}
+
+:where(.home-page) .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(0, 169, 157, 0.12);
+    color: #00786f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+:where(.home-page) .hero-eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00a99d;
+    box-shadow: 0 0 0 4px rgba(0, 169, 157, 0.2);
+}
+
+:where(.home-page) .hero-content h1 {
+    max-width: 580px;
+    margin: 0 0 14px;
+    color: #12304a;
+    font-size: clamp(34px, 4.4vw, 52px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+}
+
+:where(.home-page) .hero-content h1 span {
+    color: #00a99d;
+}
+
+:where(.home-page) .hero-content p {
+    max-width: 470px;
+    margin: 0;
+    color: #3d566b;
+    font-size: 19px;
+    line-height: 1.6;
+}
+
+:where(.home-page) .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+:where(.home-page) .btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+:where(.home-page) .btn:hover {
+    transform: translateY(-1px);
+}
+
+:where(.home-page) .btn-primary {
+    background: #00a99d;
+    color: #fff;
+    box-shadow: 0 10px 22px -8px rgba(0, 169, 157, 0.6);
+}
+
+:where(.home-page) .btn-primary:hover {
+    background: #00786f;
+}
+
+:where(.home-page) .btn-light {
+    background: #fff;
+    color: #00786f;
+    border-color: #bfe3e0;
+}
+
+:where(.home-page) .btn-light:hover {
+    background: #f1f5f4;
+}
+
+/* ---- Sections ---- */
+:where(.home-page) .section {
+    padding: 40px 0 10px;
+}
+
+:where(.home-page) .section-title {
+    margin: 0 0 20px;
+    color: #12304a;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+/* The glance cards float up over the bottom of the hero. */
+:where(.home-page) .hero + .section {
+    padding-top: 0;
+}
+
+:where(.home-page) .hero + .section .container {
+    position: relative;
+    margin-top: -72px;
+}
+
+/* Title kept for screen readers; the cards speak for themselves visually. */
+:where(.home-page) .hero + .section .section-title {
+    position: absolute;
+    left: -9999px;
+}
+
+/* ---- Health at a glance ---- */
+:where(.home-page) .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+:where(.home-page) .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 22px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-top: 3px solid #00a99d;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(18, 48, 74, 0.06), 0 12px 32px -12px rgba(18, 48, 74, 0.18);
+}
+
+:where(.home-page) .card-label {
+    margin: 0 0 12px;
+    color: #00786f;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+:where(.home-page) .card-main {
+    margin: 0 0 6px;
+    color: #12304a;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+:where(.home-page) .card-sub {
+    margin: 0 0 4px;
+    color: #3d566b;
+    font-size: 15.5px;
+    line-height: 1.45;
+}
+
+:where(.home-page) .card-empty {
+    margin: 0;
+    color: #3d566b;
+    font-size: 15.5px;
+    line-height: 1.5;
+}
+
+:where(.home-page) .card-link {
+    margin-top: auto;
+    padding-top: 16px;
+    color: #00786f;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+:where(.home-page) .card-link::after {
+    content: " \2192";
+}
+
+:where(.home-page) .card-link:hover {
+    text-decoration: underline;
+}
+
+:where(.home-page) .score {
+    color: #12304a;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+:where(.home-page) .score small {
+    color: #6b8193;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+:where(.home-page) .pill {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+:where(.home-page) .pill-high { background: #fdecec; color: #b42318; }
+:where(.home-page) .pill-low  { background: #e7f7ee; color: #1f7a4a; }
+
+:where(.home-page) .note-quote {
+    margin: 0 0 8px;
+    padding-left: 12px;
+    border-left: 3px solid #d7e3ea;
+    color: #12304a;
+    font-size: 15.5px;
+    line-height: 1.5;
+}
+
+/* ---- How it works ---- */
+:where(.home-page) .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    padding-bottom: 48px;
+}
+
+:where(.home-page) .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 16px;
+}
+
+:where(.home-page) .step-number {
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #00a99d;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 0 0 6px #e6f6f4;
+}
+
+:where(.home-page) .step h3 {
+    margin: 4px 0 6px;
+    color: #12304a;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+:where(.home-page) .step p {
+    margin: 0;
+    color: #3d566b;
+    font-size: 15.5px;
+    line-height: 1.6;
+}
+
+:where(.home-page) .step a {
+    color: #00786f;
+    font-weight: 600;
+}
+
+/* ---- Narrow screens ---- */
+@media (max-width: 760px) {
+    :where(.home-page) .hero {
+        background-position: 72% 40%;
+    }
+
+    :where(.home-page) .hero::before {
+        background: linear-gradient(180deg, rgba(234, 247, 251, 0.95) 0%, rgba(234, 247, 251, 0.9) 62%, rgba(234, 247, 251, 0.55) 100%);
+    }
+
+    :where(.home-page) .hero-content {
+        padding: 44px 16px 96px;
+    }
+
+    :where(.home-page) .hero + .section .container {
+        margin-top: -60px;
+    }
+}

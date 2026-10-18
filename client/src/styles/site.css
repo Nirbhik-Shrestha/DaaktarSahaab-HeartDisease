@@ -1,0 +1,951 @@
+/* From the PHP app's css/site.css. Every rule is scoped to .site-page with :where(), which adds no specificity, so it cannot clash with home.css. */
+/*
+ * Shared page building blocks: slim photo banner, white panels on a pale
+ * background, teal buttons and badges, tables, form fields and the split
+ * sign-in card. Used by the patient portal and the public information pages
+ * (About, Contact, Terms, Privacy).
+ *
+ * Pages add class="site-page" to <body> and lay out as
+ *   header -> .page-hero -> .page-body (panels) -> footer
+ * Colours and sizes are written out as plain values on purpose (no CSS
+ * variables in this project).
+ */
+
+/* ---------- Base ---------- */
+.site-page {
+    margin: 0;
+    padding: 0;
+    background: #f5f8fa;
+    color: #3d566b;
+    font-family: 'Platin', Times, serif;
+}
+
+.site-page *,
+.site-page *::before,
+.site-page *::after {
+    box-sizing: border-box;
+}
+
+.site-page button,
+.site-page input,
+.site-page select,
+.site-page textarea {
+    font-family: inherit;
+}
+
+/* Links in the page content only; the header and footer style their own. */
+.site-page main a {
+    color: #00786f;
+}
+
+/* ---------- Slim banner ---------- */
+/* footer.html makes <body> a flex column so the footer sits at the bottom.
+   The banner must neither grow into spare space nor shrink to nothing
+   (overflow: hidden would otherwise let it collapse on long pages). */
+:where(.site-page) .page-hero {
+    flex: 0 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: #8fcde3 url("/images/life-insurance-concept-with-stethoscope.jpg") right 42% / cover no-repeat;
+}
+
+/* Doctor pages use the doctor photo from the dashboard banner. */
+:where(.site-page) .page-hero--doctor {
+    background: #9fd9d8 url("/images/drbanner.jpg") right top / cover no-repeat;
+}
+
+:where(.site-page) .page-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgba(234, 247, 251, 0.97) 0%, rgba(234, 247, 251, 0.88) 40%, rgba(234, 247, 251, 0) 70%);
+}
+
+:where(.site-page) .page-hero__inner {
+    position: relative;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 44px 32px 88px;
+}
+
+:where(.site-page) .page-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(0, 169, 157, 0.12);
+    color: #00786f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+:where(.site-page) .page-hero__eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00a99d;
+    box-shadow: 0 0 0 4px rgba(0, 169, 157, 0.2);
+}
+
+:where(.site-page) .page-hero h1 {
+    margin: 0 0 10px;
+    color: #12304a;
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1.15;
+    text-align: left;
+}
+
+:where(.site-page) .page-hero p {
+    max-width: 520px;
+    margin: 0;
+    color: #3d566b;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+:where(.site-page) .page-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+:where(.site-page) .page-hero__meta span {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #c9ece8;
+    color: #12304a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ---------- Page body: panels float up over the banner ---------- */
+/* width: 100% because, as a flex item with auto margins, it would otherwise
+   shrink to fit its content instead of filling the page. */
+:where(.site-page) .page-body {
+    flex: 1 0 auto;
+    position: relative;
+    width: 100%;
+    max-width: 1120px;
+    margin: -56px auto 64px;
+    padding: 0 32px;
+}
+
+:where(.site-page) .page-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    align-items: start;
+}
+
+:where(.site-page) .panel {
+    margin: 0 0 24px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(18, 48, 74, 0.06), 0 12px 32px -12px rgba(18, 48, 74, 0.16);
+}
+
+:where(.site-page) .panel__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 18px;
+}
+
+:where(.site-page) .panel__title {
+    margin: 0;
+    color: #12304a;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+:where(.site-page) .panel__sub {
+    margin: 4px 0 0;
+    color: #6b8193;
+    font-size: 15px;
+}
+
+:where(.site-page) .panel__label {
+    margin: 0 0 12px;
+    color: #00786f;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* Key/value rows, e.g. session or appointment details. */
+:where(.site-page) .detail-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+:where(.site-page) .detail-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid #eef3f6;
+    font-size: 16px;
+}
+
+:where(.site-page) .detail-list li:last-child {
+    border-bottom: none;
+}
+
+:where(.site-page) .detail-list span {
+    color: #6b8193;
+}
+
+:where(.site-page) .detail-list strong {
+    color: #12304a;
+    text-align: right;
+}
+
+/* ---------- Buttons ---------- */
+:where(.site-page) .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 22px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s, border-color 0.15s;
+}
+
+:where(.site-page) .btn:hover {
+    transform: translateY(-1px);
+}
+
+.site-page .btn-primary {
+    background: #00a99d;
+    color: #fff;
+    box-shadow: 0 10px 22px -8px rgba(0, 169, 157, 0.6);
+}
+
+.site-page .btn-primary:hover {
+    background: #00786f;
+}
+
+.site-page .btn-light {
+    background: #fff;
+    border-color: #bfe3e0;
+    color: #00786f;
+}
+
+.site-page .btn-light:hover {
+    background: #f1f5f4;
+}
+
+.site-page .btn-danger {
+    background: #fff;
+    border-color: #f3c7c3;
+    color: #b42318;
+}
+
+.site-page .btn-danger:hover {
+    background: #fdecec;
+}
+
+:where(.site-page) .btn-sm {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 14.5px;
+}
+
+:where(.site-page) .btn-block {
+    display: flex;
+    width: 100%;
+}
+
+.site-page .btn[disabled],
+.site-page .btn.is-disabled {
+    background: #eef3f6;
+    border-color: #eef3f6;
+    color: #8aa0b2;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+}
+
+:where(.site-page) .btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* ---------- Badges (status, availability, risk) ---------- */
+:where(.site-page) .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+:where(.site-page) .badge-success { background: #e7f7ee; color: #1f7a4a; }
+:where(.site-page) .badge-danger  { background: #fdecec; color: #b42318; }
+:where(.site-page) .badge-warning { background: #fff4e0; color: #9a5b0f; }
+:where(.site-page) .badge-info    { background: #e6f6f4; color: #00786f; }
+:where(.site-page) .badge-muted   { background: #eef3f6; color: #6b8193; }
+
+/* ---------- Notices ---------- */
+:where(.site-page) .notice {
+    margin: 0 0 24px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+:where(.site-page) .notice-ok   { background: #e7f7ee; border: 1px solid #b7e4c9; color: #1f5f3c; }
+:where(.site-page) .notice-bad  { background: #fff5f5; border: 1px solid #feb2b2; color: #742a2a; }
+:where(.site-page) .notice-info { background: #fff8e6; border: 1px solid #f6dfae; color: #6b4e16; }
+
+:where(.site-page) .notice ul {
+    margin: 8px 0 0 20px;
+}
+
+/* ---------- Tables ---------- */
+:where(.site-page) .table-scroll {
+    overflow-x: auto;
+    margin: 0 -24px;
+    padding: 0 24px;
+}
+
+:where(.site-page) .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15.5px;
+}
+
+:where(.site-page) .data-table th {
+    padding: 12px 14px;
+    background: #f7fafb;
+    border-bottom: 1px solid #e3ebf0;
+    color: #00786f;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+:where(.site-page) .data-table th:first-child { border-top-left-radius: 10px; }
+:where(.site-page) .data-table th:last-child  { border-top-right-radius: 10px; }
+
+:where(.site-page) .data-table td {
+    padding: 14px;
+    border-bottom: 1px solid #eef3f6;
+    color: #3d566b;
+    vertical-align: middle;
+}
+
+:where(.site-page) .data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+:where(.site-page) .data-table tbody tr:hover td {
+    background: #fafcfd;
+}
+
+:where(.site-page) .data-table .cell-strong {
+    color: #12304a;
+    font-weight: 600;
+}
+
+:where(.site-page) .data-table .cell-muted {
+    color: #6b8193;
+    font-size: 14.5px;
+}
+
+/* Dates and times stay on one line; other columns give way instead. */
+:where(.site-page) .data-table .nowrap {
+    white-space: nowrap;
+}
+
+/* ---------- Empty states ---------- */
+:where(.site-page) .empty-state {
+    padding: 28px 16px;
+    border: 1px dashed #d7e3ea;
+    border-radius: 12px;
+    background: #fafcfd;
+    color: #6b8193;
+    font-size: 16px;
+    text-align: center;
+}
+
+:where(.site-page) .empty-state p {
+    margin: 0 0 14px;
+}
+
+/* ---------- Search / filter bar ---------- */
+:where(.site-page) .search-bar {
+    display: flex;
+    gap: 12px;
+}
+
+:where(.site-page) .search-bar input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #cfdbe3;
+    border-radius: 10px;
+    background: #fff;
+    color: #12304a;
+    font-size: 16px;
+}
+
+:where(.site-page) .search-bar input:focus {
+    outline: none;
+    border-color: #00a99d;
+    box-shadow: 0 0 0 4px rgba(0, 169, 157, 0.18);
+}
+
+/* ---------- Doctor cards ---------- */
+:where(.site-page) .doctor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+:where(.site-page) .doctor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px 20px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 16px;
+    text-align: center;
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+
+:where(.site-page) .doctor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -14px rgba(18, 48, 74, 0.3);
+}
+
+:where(.site-page) .doctor-card img {
+    width: 72px;
+    height: 72px;
+    margin: 0 0 12px;
+    border-radius: 50%;
+    border: 3px solid #e6f6f4;
+    background: #f5f8fa;
+    object-fit: cover;
+}
+
+:where(.site-page) .doctor-card h3 {
+    margin: 0 0 8px;
+    color: #12304a;
+    font-size: 19px;
+}
+
+:where(.site-page) .doctor-card .badge {
+    margin: 0 0 10px;
+}
+
+:where(.site-page) .doctor-card p {
+    margin: 3px 0;
+    color: #6b8193;
+    font-size: 15px;
+}
+
+:where(.site-page) .doctor-card .doctor-card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+/* ---------- Form fields (heart check, edit reading, profile) ---------- */
+.site-page form {
+    counter-reset: grp;
+}
+
+:where(.site-page) .field-group {
+    counter-increment: grp;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    min-width: 0;
+    margin: 0 0 20px;
+    padding: 72px 24px 12px;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 16px;
+    box-shadow: 0 1px 2px rgba(18, 48, 74, 0.06), 0 12px 32px -12px rgba(18, 48, 74, 0.16);
+    scroll-margin-top: 96px;
+}
+
+:where(.site-page) .field-group > legend {
+    position: absolute;
+    top: 22px;
+    left: 24px;
+    right: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    color: #12304a;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+:where(.site-page) .field-group > legend::before {
+    content: counter(grp);
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #00a99d;
+    color: #fff;
+    font-size: 14px;
+    box-shadow: 0 0 0 5px #e6f6f4;
+}
+
+:where(.site-page) .field-group.is-done > legend::after {
+    content: "Complete";
+    margin-left: auto;
+    padding: 4px 10px;
+    border-radius: 99px;
+    background: #e7f7ee;
+    color: #1f7a4a;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+:where(.site-page) .group-intro {
+    grid-column: 1 / -1;
+    margin: 0 0 18px;
+    padding: 10px 14px;
+    background: #f5f8fa;
+    border: 1px dashed #e3ebf0;
+    border-radius: 10px;
+    color: #3d566b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+:where(.site-page) .field {
+    min-width: 0;
+    margin: 0 0 18px;
+}
+
+:where(.site-page) .field--wide {
+    grid-column: 1 / -1;
+}
+
+/* The extra class beats style.css's form input[type="number"] rules. */
+.site-page .field label {
+    display: block;
+    margin: 0 0 8px;
+    color: #12304a;
+    font-weight: 600;
+}
+
+:where(.site-page) .field .unit {
+    color: #6b8193;
+    font-weight: 400;
+}
+
+.site-page .field input,
+.site-page .field select {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid #cfdbe3;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #12304a;
+    font-size: 16px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.site-page .field select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236b8193' stroke-width='2'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+}
+
+.site-page .field input:hover,
+.site-page .field select:hover {
+    border-color: #a9c0cd;
+}
+
+.site-page .field input:focus,
+.site-page .field select:focus {
+    outline: none;
+    border-color: #00a99d;
+    box-shadow: 0 0 0 4px rgba(0, 169, 157, 0.18);
+}
+
+.site-page .field.is-filled input,
+.site-page .field.is-filled select {
+    border-color: #c9ece8;
+    background-color: #fbfefe;
+}
+
+:where(.site-page) .field input::placeholder {
+    color: #9aabb8;
+}
+
+.site-page .field .hint {
+    margin: 8px 0 0;
+    padding: 0;
+    color: #6b8193;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+/* Plain two-column field layout (profile) without the numbered sections. */
+:where(.site-page) .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+}
+
+/* ---------- Sign-in / password pages ---------- */
+:where(.site-page) .auth-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 16px;
+}
+
+:where(.site-page) .auth-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 960px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e3ebf0;
+    border-radius: 20px;
+    box-shadow: 0 1px 2px rgba(18, 48, 74, 0.06), 0 24px 48px -20px rgba(18, 48, 74, 0.25);
+}
+
+:where(.site-page) .auth-visual {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 560px;
+    padding: 32px;
+    background: #8fcde3 url("/images/life-insurance-concept-with-stethoscope.jpg") 78% 60% / cover no-repeat;
+}
+
+:where(.site-page) .auth-visual::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(180deg, rgba(234, 247, 251, 0.96) 0%, rgba(234, 247, 251, 0.75) 45%, rgba(234, 247, 251, 0) 80%);
+}
+
+:where(.site-page) .auth-visual > * {
+    position: relative;
+}
+
+:where(.site-page) .auth-visual__logo img {
+    display: block;
+    height: 64px;
+    width: auto;
+}
+
+:where(.site-page) .auth-visual h2 {
+    margin: 18px 0 8px;
+    color: #12304a;
+    font-size: 30px;
+    line-height: 1.15;
+}
+
+:where(.site-page) .auth-visual p {
+    max-width: 320px;
+    margin: 0;
+    color: #3d566b;
+    font-size: 16.5px;
+    line-height: 1.55;
+}
+
+:where(.site-page) .auth-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 44px;
+}
+
+:where(.site-page) .auth-form h1 {
+    margin: 0 0 6px;
+    color: #12304a;
+    font-size: 30px;
+}
+
+:where(.site-page) .auth-form .auth-sub {
+    margin: 0 0 24px;
+    color: #6b8193;
+    font-size: 16px;
+}
+
+:where(.site-page) .auth-back {
+    display: inline-block;
+    margin-top: 20px;
+    color: #00786f;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+:where(.site-page) .auth-back:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Long-form text (About, Terms, Privacy) ---------- */
+:where(.site-page) .prose {
+    color: #3d566b;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+:where(.site-page) .prose h2 {
+    margin: 36px 0 12px;
+    color: #12304a;
+    font-size: 24px;
+    line-height: 1.25;
+    scroll-margin-top: 96px;
+}
+
+:where(.site-page) .prose h2:first-child,
+:where(.site-page) .prose .updated + h2 {
+    margin-top: 0;
+}
+
+:where(.site-page) .prose h3 {
+    margin: 24px 0 8px;
+    color: #12304a;
+    font-size: 19px;
+}
+
+:where(.site-page) .prose p {
+    margin: 0 0 14px;
+}
+
+:where(.site-page) .prose ul {
+    margin: 0 0 16px;
+    padding-left: 22px;
+}
+
+:where(.site-page) .prose li {
+    margin: 0 0 8px;
+}
+
+:where(.site-page) .prose strong {
+    color: #12304a;
+}
+
+:where(.site-page) .prose .updated {
+    display: block;
+    margin: 0 0 20px;
+    color: #6b8193;
+    font-size: 15px;
+}
+
+/* Feature tiles (About page). */
+:where(.site-page) .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 0 0 8px;
+}
+
+:where(.site-page) .feature {
+    padding: 18px 20px;
+    border: 1px solid #e3ebf0;
+    border-radius: 12px;
+    background: #fafcfd;
+}
+
+:where(.site-page) .feature h3 {
+    margin: 0 0 6px;
+    color: #12304a;
+    font-size: 18px;
+}
+
+:where(.site-page) .feature p {
+    margin: 0;
+    color: #3d566b;
+    font-size: 15.5px;
+    line-height: 1.55;
+}
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 900px) {
+    :where(.site-page) .page-hero__inner {
+        padding: 32px 16px 72px;
+    }
+
+    :where(.site-page) .page-hero::before {
+        background: linear-gradient(180deg, rgba(234, 247, 251, 0.96), rgba(234, 247, 251, 0.82));
+    }
+
+    :where(.site-page) .page-body {
+        margin-top: -48px;
+        padding: 0 16px;
+    }
+
+    :where(.site-page) .page-grid {
+        grid-template-columns: 1fr;
+    }
+
+    :where(.site-page) .panel {
+        padding: 20px 16px;
+    }
+
+    :where(.site-page) .table-scroll {
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+
+    :where(.site-page) .field-group,
+    :where(.site-page) .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    :where(.site-page) .field-group {
+        padding: 68px 16px 6px;
+    }
+
+    :where(.site-page) .field-group > legend {
+        left: 16px;
+        right: 16px;
+    }
+
+    :where(.site-page) .auth-card {
+        grid-template-columns: 1fr;
+    }
+
+    :where(.site-page) .auth-visual {
+        min-height: 0;
+        padding: 24px;
+    }
+
+    :where(.site-page) .auth-visual h2 {
+        font-size: 24px;
+    }
+
+    :where(.site-page) .auth-form {
+        padding: 28px 22px;
+    }
+}
+
+@media (max-width: 560px) {
+    :where(.site-page) .search-bar {
+        flex-direction: column;
+    }
+
+    /* In a column, flex: 1 would size the input by its (zero) basis. */
+    :where(.site-page) .search-bar input {
+        flex: none;
+    }
+}
+
+/* Tables marked .stack become one card per row on phones, each value next to
+   its column name (from the cell's data-label), instead of scrolling sideways. */
+@media (max-width: 640px) {
+    :where(.site-page) .data-table.stack thead {
+        display: none;
+    }
+
+    :where(.site-page) .data-table.stack,
+    :where(.site-page) .data-table.stack tbody,
+    :where(.site-page) .data-table.stack tr,
+    :where(.site-page) .data-table.stack td {
+        display: block;
+        width: 100%;
+    }
+
+    :where(.site-page) .data-table.stack tr {
+        padding: 12px 0;
+        border-bottom: 1px solid #e3ebf0;
+    }
+
+    :where(.site-page) .data-table.stack tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    :where(.site-page) .data-table.stack td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 6px 0;
+        border: 0;
+        text-align: right;
+    }
+
+    :where(.site-page) .data-table.stack td::before {
+        content: attr(data-label);
+        flex: none;
+        color: #6b8193;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    /* Action cells have no label; their buttons sit on the right. */
+    :where(.site-page) .data-table.stack td:not([data-label])::before {
+        content: none;
+    }
+
+    :where(.site-page) .data-table.stack td:not([data-label]) {
+        justify-content: flex-end;
+        padding-top: 10px;
+    }
+
+    :where(.site-page) .data-table.stack tbody tr:hover td {
+        background: none;
+    }
+
+    :where(.site-page) .data-table.stack .row-actions {
+        flex-wrap: wrap;
+    }
+}

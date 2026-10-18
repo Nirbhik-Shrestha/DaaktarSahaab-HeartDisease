@@ -1,0 +1,132 @@
+/*
+ * Heart assessment result card with its score meter (prediction.php,
+ * renderRiskCard). Shared by the patient result page and the doctor's
+ * assessment view.
+ */
+
+/* Styled Risk Display Cards */
+.risk-card {
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    margin-bottom: 25px;
+}
+.risk-card.high-risk {
+    background: #fff5f5;
+    border: 1px solid #feb2b2;
+    border-left: 6px solid #e53e3e;
+}
+.risk-card.low-risk {
+    background: #f0fff4;
+    border: 1px solid #9ae6b4;
+    border-left: 6px solid #38a169;
+}
+.risk-badge-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.risk-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+.risk-title-group h2 {
+    margin: 0 0 6px 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+.high-risk .risk-title-group h2 {
+    color: #c53030;
+}
+.low-risk .risk-title-group h2 {
+    color: #276749;
+}
+.risk-subtitle {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4a5568;
+    line-height: 1.4;
+}
+.reasons-block {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px 24px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+.reasons-block h3 {
+    margin: 0 0 14px 0;
+    font-size: 1.05rem;
+    color: #2d3748;
+    font-weight: 600;
+}
+.reasons-list {
+    margin: 0;
+    padding-left: 22px;
+    list-style-type: disc;
+}
+.reasons-list li {
+    margin-bottom: 8px;
+    color: #4a5568;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+.reasons-list li:last-child {
+    margin-bottom: 0;
+}
+
+/* Score meter */
+.risk-score {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+}
+.risk-score-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+.risk-score-label {
+    font-weight: 600;
+    color: #2d3748;
+}
+.risk-score-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #2d3748;
+}
+.risk-score-value small {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #718096;
+}
+.risk-meter {
+    position: relative;
+    height: 10px;
+    background: #edf2f7;
+    border-radius: 5px;
+}
+.risk-meter-fill {
+    height: 100%;
+    border-radius: 5px;
+}
+.low-risk .risk-meter-fill { background: #38a169; }
+.high-risk .risk-meter-fill { background: #e53e3e; }
+.risk-meter-threshold {
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    bottom: -4px;
+    width: 2px;
+    background: #4a5568;
+}
+.risk-score-note {
+    margin: 10px 0 0;
+    font-size: 0.85rem;
+    color: #718096;
+    line-height: 1.4;
+}

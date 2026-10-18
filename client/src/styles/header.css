@@ -1,0 +1,396 @@
+/*
+ * Site header, shared by mainHeader.html, patientHeader.html and
+ * doctorHeader.html.
+ *
+ * Wide screens: logo on the left, links and account menu on the right.
+ * Narrow screens: the links collapse behind a menu button and open as a
+ * stacked list, with the account links shown inline (hover menus do not
+ * work on touch screens).
+ */
+
+.site-header {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 12px 32px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.site-header *,
+.site-header *::before,
+.site-header *::after {
+    box-sizing: border-box;
+}
+
+/* The header uses the site font even on pages whose content uses another one. */
+.site-header,
+.site-header * {
+    font-family: 'Platin', Times, serif;
+}
+
+.site-header__logo img {
+    display: block;
+    width: 84px;
+    height: auto;
+}
+
+/* Menu button: only shown on narrow screens */
+.site-header__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 11px 10px;
+    border: 1px solid #d5dde5;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.site-header__toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: #2d3748;
+    border-radius: 1px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.site-header__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.site-header__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.site-header__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+.site-header__menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+/* Main links */
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.site-nav a {
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    font-size: 19px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+    color: #00a99d;
+}
+
+/* Account / login menu */
+.site-account {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.account-menu {
+    position: relative;
+}
+
+.account-menu__btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font: inherit;
+    color: #333;
+}
+
+.account-menu__btn img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Same look as the portal's Logout button. */
+.account-menu__btn--text {
+    padding: 12px 22px;
+    border-radius: 8px;
+    background: #00a99d;
+    color: #fff;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+.account-menu__btn--text:hover {
+    background: #007d73;
+}
+
+.account-menu__list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #f9f9f9;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* A small invisible bridge so the menu stays open while the pointer moves down to it. */
+.account-menu__list::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
+.account-menu:hover .account-menu__list,
+.account-menu:focus-within .account-menu__list {
+    display: block;
+}
+
+.account-menu__list a {
+    display: block;
+    padding: 12px 16px;
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.account-menu__list li:last-child a {
+    border-bottom: none;
+}
+
+.account-menu__list a:hover,
+.account-menu__list a:focus-visible {
+    background-color: #f1f1f1;
+}
+
+.account-menu__heading {
+    display: none;
+}
+
+.logout-btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 8px;
+    background-color: #00a99d;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: #007d73;
+}
+
+/* ---- Sticky look (patient portal and public site) ----------------------- */
+/* Sticky, slightly translucent bar with pill-shaped links; the current page's
+   link (aria-current, set in patientHeader.html / mainHeader.html) is
+   highlighted. */
+.site-header--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    min-height: 76px;
+    padding: 0 48px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(1.4) blur(10px);
+    box-shadow: 0 1px 0 #e3ebf0;
+}
+
+/* 64px: this logo file has a lot of empty space around the mark. */
+.site-header--sticky .site-header__logo img {
+    height: 64px;
+    width: auto;
+}
+
+.site-header--sticky .site-nav {
+    gap: 6px;
+}
+
+.site-header--sticky .site-nav a {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #3d566b;
+}
+
+.site-header--sticky .site-nav a:hover {
+    background: #e6f6f4;
+    color: #00786f;
+}
+
+.site-header--sticky .site-nav a[aria-current="page"] {
+    background: #e6f6f4;
+    color: #00786f;
+    font-weight: 600;
+}
+
+/* The avatar button; the public header's text "Login" button keeps its size. */
+.site-header--sticky .account-menu__btn:not(.account-menu__btn--text) {
+    width: 40px;
+    height: 40px;
+}
+
+/* ---- Narrow screens ---------------------------------------------------- */
+@media (max-width: 900px) {
+    .site-header--sticky {
+        padding: 10px 16px;
+    }
+
+    .site-header--sticky .site-header__logo img {
+        height: 52px;
+    }
+
+    /* Stacked menu rows rather than pill links. */
+    .site-header--sticky .site-nav a {
+        padding: 12px 4px;
+        border-radius: 0;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 900px) {
+    .site-header {
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 10px 16px;
+    }
+
+    .site-header__logo img {
+        width: 64px;
+    }
+
+    .site-header__toggle {
+        display: flex;
+    }
+
+    .site-header__menu {
+        display: none;
+        flex-basis: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 10px;
+        padding-top: 4px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .site-header__menu.is-open {
+        display: flex;
+    }
+
+    .site-nav {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    .site-nav a {
+        padding: 12px 4px;
+        font-size: 18px;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .site-account {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+    }
+
+    /* The account links are listed directly instead of in a hover menu. */
+    .account-menu__btn {
+        display: none;
+    }
+
+    .account-menu__heading {
+        display: block;
+        padding: 14px 4px 4px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #718096;
+    }
+
+    .account-menu__list {
+        display: block;
+        position: static;
+        width: auto;
+        background: none;
+        box-shadow: none;
+    }
+
+    .account-menu__list::before {
+        display: none;
+    }
+
+    .account-menu__list a {
+        padding: 12px 4px;
+        font-size: 17px;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .account-menu__list li:last-child a {
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .logout-btn {
+        margin: 14px 0 6px;
+        text-align: center;
+    }
+}
+
+/* ---- Unread chat messages (patient and doctor headers) -------------------- */
+.account-menu__btn {
+    position: relative;
+}
+
+.header-unread {
+    display: inline-block;
+    min-width: 20px;
+    height: 20px;
+    margin-left: 6px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #d92d20;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.header-unread[hidden] {
+    display: none;
+}
+
+/* On the round account button it sits on the top-right corner. */
+.account-menu__btn .header-unread {
+    position: absolute;
+    top: -4px;
+    right: -8px;
+    margin: 0;
+    box-shadow: 0 0 0 2px #fff;
+}
