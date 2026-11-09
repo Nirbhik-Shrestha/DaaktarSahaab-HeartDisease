@@ -6,7 +6,10 @@
  */
 export class ApiError extends Error {
     constructor(status, data) {
-        super(data?.error || (status ? 'Something went wrong. Please try again.' : 'Connection problem. Please try again.'));
+        const msg = typeof data?.error === 'string'
+            ? data.error
+            : (status ? 'Something went wrong. Please try again.' : 'Connection problem. Please try again.');
+        super(msg);
         this.status = status;
         this.data = data || {};
     }
